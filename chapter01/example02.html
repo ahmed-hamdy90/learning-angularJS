@@ -1,0 +1,28 @@
+<!doctype html>
+<html ng-app>
+	<head>
+		<title>Angular - Controller</title>
+		<script type="text/javascript" src="../angular.min.js" ></script>
+	</head>
+	<body>
+		<div ng-controller="angularCtrl">
+			<input ng-model ="name" />
+			<hr>
+			<h1>{{ name }}</h1>
+			<!-- we can Math operation into data binding -->
+			<h2>{{ age * 2 }}</h2>
+		</div>
+	</body>
+	<script type="text/javascript">
+		// angular controller must take $scope object as paramter 
+		var angularCtrl = function ($scope) {
+			// create a veriable in angular controller 
+			$scope.name = "ahmed hamdy";
+			$scope.age = 20;
+			// use $watch  listener 
+			$scope.$watch('name',function() {
+				console.log($scope.name);
+			}); 
+		};
+	</script>
+</html>
