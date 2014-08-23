@@ -1,0 +1,50 @@
+<!doctype html>
+<html ng-app>
+	<head>
+		<meta charset="utf-8">
+		<title>Angular-JS Example</title>
+		<script type="text/javascript" src="../angular.min.js" ></script>		
+	</head>
+	<body>
+		<div>
+			<label>Name: </label>
+			<input type="text" placeholder="Enter Your Name" ng-model="firstName">	 
+		</div>
+		<br/><hr>
+		<div>
+			<!-- 
+				create check box if checked will show next div using ng-show directive
+				if not checked will hide div
+				ngShow Documentation : https://docs.angularjs.org/api/ng/directive/ngShow
+			-->
+			<input type="checkbox" ng-model="firstChecked" ><label>Show ?</label>			
+		</div>
+		<br/>
+		<div ng-show="firstChecked">
+			<!-- 
+				use data binding , 
+				To make Hello world as default if use didn`t enter his name
+				use || operator in core javascript
+			-->
+			<p>Hello, {{ firstName || "world" }}!</p>			
+		</div>
+		<br/><br/><br/>
+		<div>
+			<label>Name: </label>
+			<input type="text" ng-model="secondName" placeholder="Enter Your Name">	
+		</div>
+		<br/><hr>
+		<div>
+			<!-- 
+				create check box if checked will hide next div using ng-hide directive
+				if not checked will show div
+				ngHide Documentation : https://docs.angularjs.org/api/ng/directive/ngShow
+			-->
+			<input type="checkbox" ng-model="secondChecked" ><label>Hide ?</label>			
+		</div>
+		<br/>
+		<div ng-hide="secondChecked">
+			<p>Hello, {{ secondName || "world" }}!</p>			
+		</div>
+	</body>	
+</html>
