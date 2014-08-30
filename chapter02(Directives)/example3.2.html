@@ -1,0 +1,70 @@
+<!doctype html>
+<html ng-app>
+	<head>
+		<meta charset="utf-8">
+		<title>Angular-JS Example</title>
+		<style type="text/css">
+			/* The * is the universal selector; it matches any element. */
+		 	* {
+		 		box-sizing: border-box;
+		 	}
+		 	body {
+		 		font: 16px/1.5 sans-serif;
+		 		color: #222;
+		 		margin: 5em;
+		 	}
+		</style>
+		<script type="text/javascript" src="../angular.min.js" ></script>		
+	</head>
+	<body>
+		<div>
+			<input type="search" ng-model="searchField1" >
+		</div>
+		<div ng-controller="ListCtrl">
+			<ul>
+				<!-- use ng-repeat directive (loop into names as name) 
+					 use filter:searchField1 model for filtering data list by name -->
+				<li ng-repeat="name in names | filter:searchField1">{{ name }}</li>
+			</ul>	
+		</div>
+		<hr/>
+		<br/>
+		<div>
+			<input type="search" ng-model="searchField2" >
+		</div>
+		<div ng-controller="ListCtrl">
+			<ul>
+				<!-- angular also can work with objects in ng-repeat directive 
+				     use filter:searchField2 model for filtering data list by name and age -->
+				<li ng-repeat="person in people | filter:searchField2">{{ person.name }} : {{ person.age }}</li>
+			</ul>	
+		</div>		 
+		<script type="text/javascript">
+			/**
+			 * List Controller
+			 * @param rootScopeProvider $scope
+			 */
+			var ListCtrl = function ($scope) {
+
+				/**
+				 * Array of Names
+				 * @type array
+				 */
+				$scope.names = ["Tom","Jeffrey","Dan","David","peter"]; 
+
+				/**
+				 * Array of Person objects
+				 * @type array
+				 */
+				$scope.people = [
+					{name: "Tom" , age: 20 },
+					{name: "Jeffrey" , age: 30 },
+					{name: "Dan" , age: 40 },
+					{name: "David" , age: 50 },
+					{name: "peter" , age: 60 }
+				];
+
+			}
+		</script>		
+	</body>
+</html>
