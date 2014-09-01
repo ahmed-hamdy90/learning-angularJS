@@ -25,6 +25,8 @@
 				<!-- angular also can work with objects in ng-repeat directive 
 				     use filter:search model for filtering data list by name and age -->
 				<li ng-repeat="person in people | filter:search">{{ person.name }} : {{ person.age }}</li>
+				<!-- use ng-if directive to check if length of filtering is zero show span --> 
+				<li ng-if="(people | filter:search).length == 0"><span>No Persons</span></li>
 			</ul>	
 			<div >
 				<label>Name:</label>&nbsp;<input type="text"  ng-model="addNewName" placeholder="Enter new name">
@@ -36,6 +38,8 @@
 			</div>
 		</div>		 
 		<script type="text/javascript">
+			// making a controller by the next way will works only with angularJs version 1.2
+			// If works with angularJs version 1.3 will give Error: Argument 'ListCtrl' is not a function, got undefined
 			/**
 			 * List Controller
 			 * @param rootScopeProvider $scope
