@@ -18,26 +18,22 @@
 	</head>
 	<body>
 		<div>
-			<input type="search" ng-model="searchField1" >
-		</div>
-		<div ng-controller="ListCtrl">
-			<ul>
-				<!-- use ng-repeat directive (loop into names as name) 
-					 use filter:searchField1 model for filtering data list by name -->
-				<li ng-repeat="name in names | filter:searchField1">{{ name }}</li>
-			</ul>	
-		</div>
-		<hr/>
-		<br/>
-		<div>
-			<input type="search" ng-model="searchField2" >
+			<input type="search" ng-model="search" >
 		</div>
 		<div ng-controller="ListCtrl">
 			<ul>
 				<!-- angular also can work with objects in ng-repeat directive 
-				     use filter:searchField2 model for filtering data list by name and age -->
-				<li ng-repeat="person in people | filter:searchField2">{{ person.name }} : {{ person.age }}</li>
+				     use filter:search model for filtering data list by name and age -->
+				<li ng-repeat="person in people | filter:search">{{ person.name }} : {{ person.age }}</li>
 			</ul>	
+			<div >
+				<label>Name:</label>&nbsp;<input type="text"  ng-model="addNewName" placeholder="Enter new name">
+				<br/>
+				<label>Age:</label>&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" ng-model="addNewAge" placeholder="Enter new Age">
+				<br/>
+				<input type="button" ng-click="add()" value="add" >
+				<br/>
+			</div>
 		</div>		 
 		<script type="text/javascript">
 			/**
@@ -45,12 +41,6 @@
 			 * @param rootScopeProvider $scope
 			 */
 			var ListCtrl = function ($scope) {
-
-				/**
-				 * Array of Names
-				 * @type array
-				 */
-				$scope.names = ["Tom","Jeffrey","Dan","David","peter"]; 
 
 				/**
 				 * Array of Person objects
@@ -64,7 +54,18 @@
 					{name: "peter" , age: 60 }
 				];
 
-			}
+				/**
+				 * add new persion object
+				 */
+				$scope.add = function () {
+					$scope.people.push({
+						name: $scope.addNewName,
+						age: $scope.addNewAge
+					});
+					$scope.addNewName = "";
+					$scope.addNewAge = "";
+				}; 
+			};
 		</script>		
 	</body>
 </html>
