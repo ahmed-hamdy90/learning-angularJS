@@ -1,0 +1,76 @@
+<!doctype html>
+<html ng-app="contactsApp">
+	<head>
+		<meta charset="utf-8">
+		<title>Angular-JS Example</title>
+		<style type="text/css">
+		 	* {
+		 		box-sizing: border-box;
+		 	}
+		 	body {
+		 		font: 16px/1.5 sans-serif;
+		 		color: #222;
+		 		margin: 3em;
+		 	}
+		 	select {
+		 		width: 40%;
+		 	}
+		</style>
+		<script type="text/javascript" src="../angular.min-1.3.js"></script>
+	</head>
+	<body>
+		<div ng-controller="ContactsCtrl">
+			<div>
+				<input type="search" ng-model="search">				 
+			</div> 
+			<!--
+			  	use ng-options directive with select html tag and set expersion for ng-options 
+			  	to select person name from person object in  people list
+			  	use filter:search To filtering Person objects in select html tag   
+			  	use ng-show directive To hide select html tag if result of filter using search model is zero 
+			-->
+			<select ng-model= "selectedPerson" 
+					ng-options= "person.name for person in people | filter:search"
+					ng-show= "(people| filter:search).length != 0" >
+				<option value="">choose a person:</option>
+			</select>
+			<!-- use ng-if directive To show the next div if result of filter using search model is zero -->
+			<div ng-if= "(people| filter:search).length == 0" >
+				<span>No Persons with Name contain : {{ search }}</span>
+			</div>
+			<hr/>
+			<br/>
+			<!-- 
+				use ng-show to show the next div only if select a person using select html tag 
+				div contains two input to diplay name and number of selected person
+			-->
+			<div ng-show= "selectedPerson">
+				<label>Name: </label><input type="text" ng-model="selectedPerson.name">
+				<br/>
+				<label>Number: </label><input type="text" ng-model="selectedPerson.number">
+				<br/>
+			</div>				
+		</div>	
+		<script type="text/javascript">
+			/**
+			 * contacts App Module
+			 */
+			angular.module('contactsApp',[])
+				/**
+				 * Contacts Controller
+				 * @param  rootScopeProvider $scope 
+				 */
+				.controller('ContactsCtrl', ['$scope', function($scope){
+					/**
+					 * Person Objects in Poeple Array
+					 * @type Array
+					 */
+					$scope.people = [
+						{name:"Tom Ashworth", number:"1234567890"},
+						{name:"Jeffrey way", number:"09876543421"},
+						{name:"Joy Ashworth", number:"1230984756"}
+					];
+				}]);
+		</script>
+	</body>
+</html>

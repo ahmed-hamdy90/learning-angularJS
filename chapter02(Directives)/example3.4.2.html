@@ -1,0 +1,64 @@
+<!doctype html>
+<html ng-app="contactsApp">
+	<head>
+		<meta charset="utf-8">
+		<title>Angular-JS Example</title>
+		<style type="text/css">
+		 	* {
+		 		box-sizing: border-box;
+		 	}
+		 	body {
+		 		font: 16px/1.5 sans-serif;
+		 		color: #222;
+		 		margin: 3em;
+		 	}
+		 	select {
+		 		width: 40%;
+		 	}
+		</style>
+		<script type="text/javascript" src="../angular.min-1.3.js"></script>
+	</head>
+	<body>
+		<div ng-controller="ContactsCtrl">
+			<!--
+			  	use ng-options directive with select html tag and set expersion for ng-options 
+			  	to select person name from person object in  people list  
+			-->
+			<select ng-model="selectedPerson" ng-options="person.name for person in people">
+				<option value="">choose a person:</option>
+			</select>
+			<hr/>
+			<!-- 
+				use ng-show directive to display selected person name 
+				or diplay No Person Selected Message using selectedPerson model value
+			-->
+			<div ng-show="selectedPerson" >
+				<label>Selected Person is: </label><span>{{selectedPerson.name}}</span>
+			</div>
+			<div ng-show="!selectedPerson" >
+				<span>No Person Selected</span>
+			</div>				
+		</div>	
+		<script type="text/javascript">
+			/**
+			 * contacts App Module
+			 */
+			angular.module('contactsApp',[])
+				/**
+				 * Contacts Controller
+				 * @param  rootScopeProvider $scope 
+				 */
+				.controller('ContactsCtrl', ['$scope', function($scope){
+					/**
+					 * Person Objects in Poeple Array
+					 * @type Array
+					 */
+					$scope.people = [
+						{name:"Tom Ashworth", number:"1234567890"},
+						{name:"Jeffrey way", number:"09876543421"},
+						{name:"Joy Ashworth", number:"1230984756"}
+					];
+				}]);
+		</script>
+	</body>
+</html>
