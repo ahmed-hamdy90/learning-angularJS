@@ -27,22 +27,11 @@
 			  	use ng-options directive with select html tag and set expersion for ng-options 
 			  	to select person name from person object in  people list
 			  	use filter:search To filtering Person objects in select html tag   
-			  	use ng-if directive To hide select html tag if result of filter using search model is zero 
+			  	use ng-show directive To hide select html tag if result of filter using search model is zero 
 			-->
-			<!-- 
-				Note: ng-if create new scope ( child scope inherit from root scope) So ng-model will not changed it`s value when we select a person using select html tag and div (which show if we select a person) will not show even we aleardy select a person.
-				Because -> ng-model(selectedPerson) in select html tag belong to new scope (which ng-if create)
-				and ng-model(selectedPerson) which used to show or hide div belong to root scope So any change in first model will not change the second 
-				To Solve this problem -> 
-				 	1) make value of ng-model in select html tag be $parent.selectedPerson
-				 	   the mean selectedPerson model belong to root scope not 
-				 	   to new scope (which created by ng-if)
-				 	2) another solution is use ng-show directive instead of ng-if in select html tag 
-					   as ng-show unlike ng-if didn`t create new scope [ second solution in example 3.4.4.html ]
-			 -->
-			<select ng-model= "$parent.selectedPerson" 
+			<select ng-model= "selectedPerson" 
 					ng-options= "person.name for person in people | filter:search"
-					ng-if= "(people| filter:search).length != 0" >
+					ng-show = "(people| filter:search).length != 0" >
 				<option value="">choose a person:</option>
 			</select>
 			<!-- use ng-if directive To show the next div if result of filter using search model is zero -->

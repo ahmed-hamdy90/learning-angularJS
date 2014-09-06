@@ -1,0 +1,87 @@
+<!doctype html>
+<html ng-app="scopeApp">
+	<head>
+		<meta charset="utf-8">
+		<title>Understand Scopes Example</title>
+		<script type="text/javascript" src="../angular.min-1.3.js"></script>
+	</head>
+	<body>
+		<div ng-controller="TestCtrl" id="masterDiv">
+			<!-- use $id to debug id of scope (every scope has unique id)-->
+			<span>Scope under ng-controller (Testctrl) is : {{ $id }}</span>
+			<p>Model A : {{ model_A }}</p>
+			<p>Model B : {{ model_B }}</p>
+			<p>Model C : {{ model_C }}</p>
+			<a href="" ng-show="model_C" ng-click="showThirdDiv()">show div with id = ThirdDiv</a>
+							{{ $parent.model_A }}
+			<br/>
+			<br/>
+			<div ng-model="$root.model_A" ng-hide="$root.model_A">
+				{{ model_A }}
+			</div>
+			<div id="firstDiv">
+				<span>Scope under div with id = firstDiv is : {{ $id }}</span>
+				<br/>
+				<input type="checkbox" ng-model="model_A">
+				<span>Model A : {{ model_A }}</span>
+			</div>
+			<!-- 
+				ng-if create new scope (child scope inherit from parent scope ) And perent scope in this case is 
+				root scope 
+				So any change in model_B into div with id = SecondDiv did not update value of model_B
+				under div with id = masterDiv(model_B in parent scope)  
+			--> 
+			<div id="SecondDiv" ng-if="!model_B">
+				<span>Scope under div with id = SecondDiv is : {{ $id }}</span>
+				<br/>
+				<input type="checkbox" ng-model="model_B">
+				<span>Model B : {{ model_B }}</span>
+			</div>
+			<!-- 
+				use $root with model_C To refer to model_C under parent scope not under new scope
+				( created by ng-if) this will make any change in value of model_C in div with third div 
+				will affect on model_C under div with id = masterDiv 
+			-->
+			<div id="ThirdDiv" ng-if="!model_C">
+				<span>Scope under div with id = ThirdDiv is : {{ $id }}</span>
+				<br/>
+				<input type="checkbox" ng-model="$parent.model_C">
+				<span>Model C : {{ model_C }}</span>
+			</div>					
+		</div>
+		<script type="text/javascript">
+			/**
+			 * scope App Module
+			 */
+			angular.module('scopeApp',[])
+				/**
+				 * Test Controller
+				 * @param  rootScopeProvider $scope 
+				 */
+				.controller('TestCtrl', ['$scope', function($scope){
+					/**
+					 * model_A
+					 * @type Boolean
+					 */
+					$scope.model_A = false;
+					/**
+					 * model_B
+					 * @type Boolean
+					 */
+					$scope.model_B = false;
+					/**
+					 * model_C
+					 * @type Boolean
+					 */
+					$scope.model_C = false;
+
+					/**
+					 * showThirdDiv method used to display third Div again
+					 */
+					$scope.showThirdDiv = function(){
+						$scope.model_C = false;
+					}
+				}]);
+		</script>
+	</body>
+</html>
