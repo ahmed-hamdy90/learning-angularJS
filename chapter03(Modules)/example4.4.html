@@ -22,20 +22,22 @@
 		</div>
 		<script type="text/javascript">
 		   /**
-			*  myApp Module
+			*  myApp Module 
 			*/
 			angular.module('myApp', [])
 				/**
-				 * Example Controller
-				 * @param  rootScopeProvider $scope 
+				 * Example Controller 
+				 * @param  rootScopeProvider scope 
 				 */
-				.controller('ExampleCtrl',function($scope){
+				.controller('ExampleCtrl',['$scope', function(scope){
+					// use Dependency Injection ( inline injection annotation) to inject $scope object 
+					// as scope member
 					/**
 					 * name 
 					 * @type String
 					 */
-					$scope.name = "Example App";
-				});
+					scope.name = "Example App";
+				}]);
 		</script>
 	</body>
 </html>
