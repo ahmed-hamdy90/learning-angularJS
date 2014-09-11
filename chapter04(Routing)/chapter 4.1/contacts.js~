@@ -16,17 +16,23 @@ angular.module("contactsApp",['ngRoute'])
 			 * index route to list contacts
 			 */
 			.when("/",{
-
+<<<<<<< HEAD
 				tamplateUrl: 'list.html'
-
+=======
+				tamplateUrl: "list.html"
+>>>>>>> 9dba78fcfc68e8a50af6cabaa5e8e63e86272aa7
 			})
 			/**
 			 * edit route to edit an existing Person contact
 			 */
 			.when("/contact/:index",{
-
+<<<<<<< HEAD
 				tamplateUrl: 'edit.html',
 				controller: 'EditCtrl'
+=======
+				tamplateUrl: "edit.html",
+				controller: "EditCtrl"
+>>>>>>> 9dba78fcfc68e8a50af6cabaa5e8e63e86272aa7
 			})
 	}])
 	/**
