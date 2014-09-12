@@ -7,24 +7,24 @@ body {
 	margin: 5em;
 }
 .editDivView{
-	margin-top: 20em;
-	margin-bottom: 20em;
-	margin-right: 20em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	margin-right: 2em;
 }
 .editDivView > * {
-	margin: 20em;
+	margin-right: 2em;
 }
 .listDivView{
-	margin-top: 20em;
-	margin-bottom: 20em;
-	margin-left: 20em;
+	margin-top: 2em;
+	margin-bottom: 2em;
+	margin-left: 2em;
 }
 .listDivView > * {
-	margin: 20em;
+	margin-right: 2em;
 }
 ul {
 	list-style: none;
-	margin-left: 20em;
-	margin-top: 5em;
-	margin-bottom: 5em; 
+	margin-left: 2em;
+	margin-top: 2em;
+	margin-bottom: 2em; 
 }
