@@ -1,0 +1,10 @@
+<h2>List</h2>
+<div class="listDivView">
+	<label for="search">Search:</label>
+	<input type="search" ng-model="search">
+</div>
+<ul>
+	<li ng-repeat="person in people | filter:search">
+		[{{ $index+1 }}] - <a href="#/contacts/{{$index}}">{{ person.name }}</a> : {{ person.number }}
+	</li>
+</ul>
