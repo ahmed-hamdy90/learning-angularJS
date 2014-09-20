@@ -1,7 +1,8 @@
 /**
  * contacts App
- *
- * contains routing and controllers to list contacts and edit them 
+ * 		<br/> contains routing and controllers to list contacts and edit them 
+ * 		
+ * @author ahmed hamdy <ahmedhamdy20@gmail.com>		
  */
 angular.module("contactsApp",['ngRoute'])
 	/**
