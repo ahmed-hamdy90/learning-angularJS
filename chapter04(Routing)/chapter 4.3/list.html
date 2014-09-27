@@ -5,9 +5,11 @@
 </div>
 <ul>
 	<li ng-repeat="person in people | filter:search">
-		[{{ $index+1 }}] - <a href="#/contacts/{{$index}}">{{ person.name }}</a> : {{ person.number }}
+		[{{ $index+1 }}] - {{ person.name }} : {{ person.number }} 
+		<input type="button" value="Edit" ng-click="editPerson($index)"> 
+		<input type="button" value="Delete" ng-click="deletePerson($index)">
 	</li>
 </ul>
 <div>
-	<a href="#/add">Add New Contact</a>
+	<a href="#/contacts/add">Add New Contact</a>
 </div>

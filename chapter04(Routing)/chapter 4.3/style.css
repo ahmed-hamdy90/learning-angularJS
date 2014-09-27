@@ -23,12 +23,16 @@ body {
 	margin-right: 2em;
 }
 .addDivView {
-	margin-top: 2em;
-	margin-bottom: 2em;
-	margin-left: 2em;
+	margin-top: 1em;
+	margin-left: 1em;
 }
 .addDivView > * {
-	margin-right: 2em;
+	margin-right: 1em;
+}
+.addButton {
+	margin-left: 5em;
+	margin-top: 1em;
+	margin-bottom: 1em;
 }
 ul {
 	list-style: none;

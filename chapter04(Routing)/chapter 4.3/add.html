@@ -7,7 +7,10 @@
 	<label>Number: </label>
 	<input type="text" ng-model="person.number">
 </div>
+<div class="addButton" ng-disabled="person.name.length > 0 && person.number.length > 0 ">
+	<input type="button" value="Add New Person" ng-click="addNewPerson()">
+</div>
 <div>
-	<a href="#" ng-click="backToList()">Back To List </a>&rarr;	
+	<a href="#/contacts" >Back To List </a>&rarr;	
 </div>
 
