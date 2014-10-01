@@ -126,13 +126,42 @@ angular.module("contactsApp",['ngRoute'])
 	 */
 	.controller('AddContactsCtrl', ['$scope', '$location', function($scope, $location){
 		
+		/* 
+		 Note : Must Initialize ng-model for [name - number] text input first the page loaded  
+				To be able to check length of text for used it in disable and able add new button
+				Without initialize them , will face problem of undefiend property 
+		*/
+		/**
+		 * Name of person 
+		 * @type String
+		 */
+		$scope.name = '';
+
+		/**
+		 * Number of person
+		 * @type String
+		 */
+		$scope.number = '';
+
+		/**
+		 * isCanAddNewPerson 
+		 * @return Boolean
+		 */
+		$scope.isCanAddNewPerson = function () {
+
+			if( $scope.name.length > 0 && $scope.number.length > 0){
+				return false;
+			}
+			return true;
+		}
 		/**
 		 * addNewPerson Method for add new Person into People List 
 		 */
 		$scope.addNewPerson = function () {
+
 			$scope.people.push({
-				name: $scope.person.name,
-				number: $scope.person.number
+				name: $scope.name,
+				number: $scope.number
 			});
 			$location.path('/contacts').replace();
 		}

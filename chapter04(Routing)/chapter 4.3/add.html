@@ -1,14 +1,14 @@
 <h2>Add New Contacts</h2>
 <div class="addDivView">
 	<label for="name">Name: </label>
-	<input type="text" ng-model="person.name">	
+	<input type="text" ng-model="name">	
 </div>
 <div class="addDivView">
 	<label>Number: </label>
-	<input type="text" ng-model="person.number">
+	<input type="text" ng-model="number">
 </div>
-<div class="addButton" ng-disabled="person.name.length > 0 && person.number.length > 0 ">
-	<input type="button" value="Add New Person" ng-click="addNewPerson()">
+<div class="addButton" >
+	<input type="button" value="Add New Person" ng-click="addNewPerson()" ng-disabled="isCanAddNewPerson()">
 </div>
 <div>
 	<a href="#/contacts" >Back To List </a>&rarr;	
