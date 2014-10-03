@@ -21,18 +21,21 @@
 			{{ name }}
 		</div>
 		<script type="text/javascript">
+
 			/**
 			 * Example Controller
-			 * @param rootScopeProvider $scope 
+			 * @param {$rootScopeProvider} $scope 
 			 */
 			var ExampleCtrl = function ($scope) {
 				$scope.name = "Example App";
 				// log $scope object into console 
 				console.log($scope);	
 			}
+			
 			// log Example controler into console 	
 			console.log(ExampleCtrl.toString());
-			console.log(ExampleCtrl);	
+			console.log(ExampleCtrl);
+
 		</script>
 	</body>
 </html>

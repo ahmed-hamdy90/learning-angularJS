@@ -21,16 +21,19 @@
 			{{ name }}
 		</div>
 		<script type="text/javascript">
+
 			/**
 			 * Example Controller
-			 * @param rootScopeProvider scope 
+			 * @param {$rootScopeProvider} scope 
 			 */
 			var ExampleCtrl = function (scope) {
 				// use scope as $scope object after using Dependency Injection 
 				scope.name = "Example App";	
 			}
+
 			// using Dependency Injection to inject $scope object in ExampleCtrl 
 			ExampleCtrl.$inject = ["$scope"];
+			
 		</script>
 	</body>
 </html>

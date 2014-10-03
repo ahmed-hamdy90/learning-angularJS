@@ -40,25 +40,31 @@
 			</div>				
 		</div>	
 		<script type="text/javascript">
+
 			/**
 			 * contacts App Module
+			 * @author ahmed hamdy <ahmedhamdy20@gmail.com>
 			 */
 			angular.module('contactsApp',[])
+
 				/**
 				 * Contacts Controller
-				 * @param  rootScopeProvider $scope 
+				 * @param {$rootScopeProvider} $scope 
 				 */
 				.controller('ContactsCtrl', ['$scope', function($scope){
+
 					/**
 					 * Person Objects in Poeple Array
-					 * @type Array
+					 * @type {Array}
 					 */
 					$scope.people = [
 						{name:"Tom Ashworth", number:"1234567890"},
 						{name:"Jeffrey way", number:"09876543421"},
 						{name:"Joy Ashworth", number:"1230984756"}
 					];
+
 				}]);
+				
 		</script>
 	</body>
 </html>

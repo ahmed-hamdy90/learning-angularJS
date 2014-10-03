@@ -52,15 +52,19 @@
 			</div>
 		</div>
 		<script type="text/javascript">
+
 			/**
 			 * browser App Module 
+			 * @author ahmed hamdy <ahmedhamdy20@gmail.com>
 			 */
 			angular.module('browserApp',[])
+
 				/**
 				 * Browser Controller
-				 * @param  rootScopeProvider $scope 
+				 * @param {$rootScopeProvider} $scope 
 				 */
 				.controller('BrowserCtrl', ['$scope', function($scope){
+
 					/**
 					 * clean function use to clean text value for path from space (replace space with -)
 					 * and igone any chartacter not in [a to z] , [0 to 9] and - (replace them with nothing) 
@@ -68,10 +72,11 @@
 					$scope.clean = function () {
 
 						$scope.path = $scope.path.replace(/\s+/,'-')
-												 .replace(/[^a-z0-9-]/i,'');		
+											.replace(/[^a-z0-9-]/i,'');		
 					}
 
 				}]);
+
 		</script>
 	</body>
 </html>		

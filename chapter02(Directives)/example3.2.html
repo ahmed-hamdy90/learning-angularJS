@@ -40,21 +40,22 @@
 			</ul>	
 		</div>		 
 		<script type="text/javascript">
+
 			/**
 			 * List Controller
-			 * @param scopeProvider $scope scope which create by ListCtrl 
+			 * @param {$rootScopeProvider} $scope scope which create by ListCtrl 
 			 */
 			var ListCtrl = function ($scope) {
 
 				/**
 				 * Array of Names
-				 * @type array
+				 * @type {Array}
 				 */
 				$scope.names = ["Tom","Jeffrey","Dan","David","peter"]; 
 
 				/**
 				 * Array of Person objects
-				 * @type array
+				 * @type {Array}
 				 */
 				$scope.people = [
 					{name: "Tom" , age: 20 },
@@ -65,6 +66,7 @@
 				];
 
 			}
+			
 		</script>		
 	</body>
 </html>

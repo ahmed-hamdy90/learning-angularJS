@@ -21,21 +21,27 @@
 			{{ name }}
 		</div>
 		<script type="text/javascript">
+
 		   /**
-			*  myApp Module
+			* myApp Module
+			* @author ahmed hamdy <ahmedhamdy20@gmail.com>
 			*/
 			angular.module('myApp', [])
+
 				/**
 				 * Example Controller
-				 * @param  rootScopeProvider $scope 
+				 * @param {$rootScopeProvider} $scope 
 				 */
 				.controller('ExampleCtrl',function($scope){
+
 					/**
 					 * name 
-					 * @type String
+					 * @type {String}
 					 */
 					$scope.name = "Example App";
+					
 				});
+
 		</script>
 	</body>
 </html>

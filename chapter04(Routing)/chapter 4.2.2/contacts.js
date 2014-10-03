@@ -1,14 +1,15 @@
 /**
- * contacts App
+ * contacts App Module
  * 		<br/> contains routing and controllers to list contacts and edit them 
- * 		
+ *
+ * @param {ngRoute} ngRoute use Dependency Injection to inject ngRoute module Which provides routing 
  * @author ahmed hamdy <ahmedhamdy20@gmail.com>		
  */
 angular.module("contactsApp",['ngRoute'])
 	/**
 	 * configure the routes for contacts App
 	 * 
-	 * @param  $routeProvider routing use Dependency Injection to inject $routeProvider object
+	 * @param {$routeProvider} routing use Dependency Injection to inject $routeProvider object
 	 */
 	.config(['$routeProvider',function($routeProvider) {
 
@@ -58,14 +59,14 @@ angular.module("contactsApp",['ngRoute'])
 	 * 		<br/> contactsCtrl work as perent controller for all childreen controller
 	 * 			  so people veriable will see into all controller
 	 * 		
-	 * @param  $rootScopeProvider $scope use Dependency Injection to inject $rootScopeProvider object
-	 * @param  $location $location use Dependency Injection to inject $location service  
+	 * @param {$rootScopeProvider} $scope use Dependency Injection to inject $rootScopeProvider object
+	 * @param {$location $location} use Dependency Injection to inject $location service  
 	 */
 	.controller('ContactsCtrl', ['$scope', '$location', function($scope, $location){
 		
 		/**
 		 * People Contacts 
-		 * @type Array
+		 * @type {Array}
 		 */
 		$scope.people = [		
 			{name : "Tom Ashworth", number : "1234567890"},
@@ -77,7 +78,7 @@ angular.module("contactsApp",['ngRoute'])
 		 * editPerson Method
 		 * 			<br/> used to redirct to edit route  
 		 * 			
-		 * @param Integer index index of Person into People List 
+		 * @param {Integer} index index of Person into People List 
 		 */
 		$scope.editPerson = function (index) {
 			
@@ -88,7 +89,7 @@ angular.module("contactsApp",['ngRoute'])
 		 * deletePerson Method
 		 * 			<br/> used to redirct to delete route  
 		 * 			
-		 * @param Integer index index of Person into People List 
+		 * @param {Integer} index index of Person into People List 
 		 */
 		$scope.deletePerson = function (index) {
 			
@@ -97,32 +98,32 @@ angular.module("contactsApp",['ngRoute'])
 
 	}])
 	/**
-	 * Edit Controller
+	 * Edit Contacts Controller
 	 * 		<br/> For edit an Existing Persons in People Contacts
 	 * 
-	 * @param  $rootScopeProvider $scope use Dependency Injection to inject $rootScopeProvider object 
-	 * @param  $routeParams $routeParams use Dependency Injection to inject $routeParams service 
+	 * @param {$rootScopeProvider} $scope use Dependency Injection to inject $rootScopeProvider object 
+	 * @param {$routeParams} $routeParams use Dependency Injection to inject $routeParams service 
 	 */
 	.controller('EditContactsCtrl', ['$scope','$routeParams', function($scope, $routeParams){
 		
 		/**
 		 * Index of person in people contacts 
-		 * @type Integer
+		 * @type {Integer}
 		 */
 		$scope.index = $routeParams.index;
 		/**
 		 * Person Object Loaded from peolpe Contacts 
-		 * @type  Object
+		 * @type {Object}
 		 */
 		$scope.person = $scope.people[$scope.index];
 
 	}])
 	/**
-	 * Add Controller
+	 * Add Contacts Controller
 	 * 		<br/> For add a New Person in People Contacts
 	 * 
-	 * @param  $rootScopeProvider $scope use Dependency Injection to inject $rootScopeProvider object 
-	 * @param  $location $location use Dependency Injection to inject $location service  
+	 * @param {$rootScopeProvider} $scope use Dependency Injection to inject $rootScopeProvider object 
+	 * @param {$location} $location use Dependency Injection to inject $location service  
 	 */
 	.controller('AddContactsCtrl', ['$scope', '$location', function($scope, $location){
 		
@@ -133,19 +134,19 @@ angular.module("contactsApp",['ngRoute'])
 		*/
 		/**
 		 * Name of person 
-		 * @type String
+		 * @type {String}
 		 */
 		$scope.name = '';
 
 		/**
 		 * Number of person
-		 * @type String
+		 * @type {String}
 		 */
 		$scope.number = '';
 
 		/**
 		 * isCanAddNewPerson 
-		 * @return Boolean
+		 * @return {Boolean}
 		 */
 		$scope.isCanAddNewPerson = function () {
 
@@ -168,18 +169,18 @@ angular.module("contactsApp",['ngRoute'])
 
 	}])
 	/**
-	 * Delete Controller
+	 * Delete Contacts Controller
 	 * 		<br/> For Delete an Existing Persons in People Contacts
 	 * 
-	 * @param  $rootScopeProvider $scope use Dependency Injection to inject $rootScopeProvider object 
-	 * @param  $routeParams $routeParams use Dependency Injection to inject $routeParams service 
-	 * @param  $location $location use Dependency Injection to inject $location service 
+	 * @param {$rootScopeProvider} $scope use Dependency Injection to inject $rootScopeProvider object 
+	 * @param {$routeParams} $routeParams use Dependency Injection to inject $routeParams service 
+	 * @param {$location} $location use Dependency Injection to inject $location service 
 	 */
 	.controller('DeleteContactsCtrl', ['$scope', '$routeParams', '$location', function($scope, $routeParams, $location){
 
 		/**
 		 * Index of person in people contacts 
-		 * @type Integer
+		 * @type {Integer}
 		 */
 		var index = $routeParams.index; 
 
