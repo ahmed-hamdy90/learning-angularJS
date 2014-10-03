@@ -19,11 +19,26 @@
 		<div ng-controller="FilterCtrl">
 			<ul>
 				<li>Price Without filter : {{price}}</li>
-				<!-- Price With defualt currency filter which add $ sign before price value-->
+				<!-- Price With defualt currency filter which add dollar $ Sign before price value -->
 				<li>Price With currency filter : {{price | currency}}</li>
-				<li>{{amount}}</li>
+				<!-- Price With currency filter and second paramter € 
+					 which add Euro € Sign before price value -->
+				<li>Price With currency € filter : {{price | currency: '€'}}</li>
+			</ul>	
+			<ul>					 
+				<li>amount of number without filter : {{amount}}</li>
+				<!-- amount of number with default number filter 
+					 which reformat number to 3 number of decimal places -->				 
+				<li>amount of number with number filter : {{amount | number}}</li>
+				<!-- amount of number with number filter and second paramter 5 
+					 which reformat number to 5 number of decimal places -->				 
+				<li>amount of number with number filter and 5 for function size : {{amount | number : 5}}</li>
+			</ul>
+			<ul>
 				<li>{{message}}</li>
 				<li>{{message}}</li>
+			</ul>
+			<ul>	
 				<li>{{date}}</li>
 			</ul>
 			<ul>
@@ -83,6 +98,10 @@
 					 	"Jeffrey"
 					];
 
+					/**
+					 * people Array of Persons with two key first name and last name of Person 
+					 * @type {Array}
+					 */
 					$scope.people = [
 						{firstname : "Tom", lastname: "Ashworth"},
 						{firstname : "Jeffrey", lastname: "Way"},
@@ -90,6 +109,7 @@
 					];
 
 				}]);
+
 		</script>
 	</body>
 </html>
