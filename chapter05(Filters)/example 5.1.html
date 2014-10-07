@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Example 5.1 [filters]</title>
+		<style type="text/css">
+		 	* {
+		 		box-sizing: border-box;
+		 	}
+		 	body {
+		 		font: 16px/1.5 sans-serif;
+		 		color: #222;
+		 		margin: 5em;
+		 	}
+		</style>
+	</head>
+	<body>
+		<div ng-controller="FilterCtrl">
+			<p>Text without Custom filter -> {{ text }}</p>
+			<p>Text with clean filter [Custom filter] -> {{ text | clean }}</p>
+			<p>Text with clean filter [Custom filter] and space separator -> {{ text | clean : ' ' }}</p>
+			<p>Text with clean filter [Custom filter] and # separator -> {{ text | clean : '#' }}</p>
+		</div>
+		<script type="text/javascript" src="../angular.min-1.3.js"></script>
+		<script type="text/javascript">
+
+			/**
+			 * myApp Module
+			 * 
+			 * @author ahmed hamdy <ahmedhamdy20@gmail.com>
+			 */
+			angular.module('myApp',[])
+				
+				/**
+				 * clean filter
+				 * 			<br/> clean filter is custom filter used for clean text 
+				 * 				  and put separator between words.
+				 * 				  also can set a separator as second argument 
+				 * 				  which used to separate between words
+				 * 				     
+				 * @return {function} custom filter function
+				 */
+				.filter('clean', function () {
+					
+					/**
+					 * clean filter function
+					 * @param  {String} input     input text which went to clean it 
+					 * @param  {String} separator (Optional) separator which used to separate between words,								 <br/> default separator if there is not separator paramter 								 will be [-]    
+					 *                            
+					 * @return {String}           input text after cleaned
+					 */
+					return function (input , separator) {
+
+						var pattern = new RegExp("[^a-z0-9"+(separator || '-')+"]", "ig");
+						var endPattern = new RegExp((separator || '-')+"+$");
+
+						return input.replace(/[\s{2,}]/g,' ')
+								.replace(/\s+/g, (separator || '-') )
+								.replace(pattern, '')
+								.replace(endPattern, '')
+								.toLowerCase();
+					}
+
+				})
+
+				/**
+				 * Filter Controller
+				 *
+				 * @param {$rootScopeProvider} $scope use Dependency Injection to inject $scope object
+				 */
+				.controller('FilterCtrl', ['$scope', function($scope){
+					
+					/**
+					 * input text
+					 * @type {String}
+					 */
+					$scope.text = "Hello World , this is some text ! ";
+
+				}]);
+
+		</script>
+	</body>
+</html>	
