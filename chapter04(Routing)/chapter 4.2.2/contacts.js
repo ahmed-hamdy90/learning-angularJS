@@ -9,9 +9,16 @@ angular.module("contactsApp",['ngRoute'])
 	/**
 	 * configure the routes for contacts App
 	 * 
-	 * @param {$routeProvider} routing use Dependency Injection to inject $routeProvider object
+	 * @param {$routeProvider} $routeProvider use Dependency Injection to inject $routeProvider object
+	 * @param {$locationProvider} $locationProvider use Dependency Injection to inject $locationProvider object
 	 */
-	.config(['$routeProvider',function($routeProvider) {
+	.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+
+		// enable html5Mode to remove hashtag(#) from URL
+		// url before enable html5Mode was into a tag 
+		// <a href="#/contacts"></a> and <a href="#/contacts/add"></a>
+		// Now we can remove hashtag from [href] Just <a href="/contacts"></a> 
+		$locationProvider.html5Mode(true);
 
 		$routeProvider
 			/**
@@ -53,6 +60,7 @@ angular.module("contactsApp",['ngRoute'])
 
 				redirectTo : "/contacts"
 			});
+
 	}])
 	/**
 	 * Contacts Controller 
