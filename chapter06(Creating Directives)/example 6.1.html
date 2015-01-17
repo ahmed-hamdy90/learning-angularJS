@@ -32,13 +32,20 @@
         	    	// return object has properties of click directive
         	    	return {
 
-        	    		// only matches attribute name
+        	    		// only matches attribute name i.e (<html-tag click=""></html-tag>)
         	    		restrict: 'A', 
         	    		link: function (scope, element, attrs) {
 
         	    			console.log(attrs);
+        	    			// add (bind) handler for click action 
         	    			element.bind('click', function () {
 
+        	    				/* 
+        	    					use $eval to evaluates javaScript expression (javascript code) AS attrs prameters repersent
+        	    					attributes into html element [in this case button tag] So we get click attribute Value 
+        	    					into html element which repersent as string value [ in this case click value is handler()]
+        	    					SO the next line well work as we was wrote this line [ handler(); ]   
+        	    				*/			
         	    				scope.$eval(attrs.click);
         	    			})	
         	    		}	
