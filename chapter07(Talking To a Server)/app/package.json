@@ -1,0 +1,27 @@
+{
+  "name": "chapter07",
+  "version": "1.0.0",
+  "description": "create server side [nodejs] for angular examples into chapter07   ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo 'no test'",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahmed-hamdy90/learning-angularJS.git"
+  },
+  "author": "ahmed hamdy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmed-hamdy90/learning-angularJS/issues"
+  },
+  "homepage": "https://github.com/ahmed-hamdy90/learning-angularJS",
+  "dependencies": {
+    "body-parser": "^1.10.2",
+    "express": "^4.11.1",
+    "mongoose": "^3.8.21",
+    "morgan": "^1.5.1",
+    "serve-favicon": "^2.2.0"
+  }
+}
