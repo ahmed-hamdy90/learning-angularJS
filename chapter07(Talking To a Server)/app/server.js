@@ -1,11 +1,12 @@
-var path    = require('path') ,
-	fs      = require('fs') ,
-	http    = require('http') ,
+var path  = require('path') ,
+	fs    = require('fs') ,
+	http  = require('http') ,
 
-	express    = require('express'),
-	bodyParser = require('body-parser'),
-	logger     = require('morgan')
-	favicon    = require('serve-favicon');
+	express      = require('express'),
+	bodyParser   = require('body-parser'),
+	logger       = require('morgan'),
+	favicon      = require('serve-favicon'),
+	errorhandler = require('errorhandler');
 
 // ========================
 // Database
@@ -15,13 +16,13 @@ var mongoose = require('mongoose');
 
 // set mongodb connection path and set debug with true To enable logging collection methods + arguments in console
 mongoose
-    .connect('mongodb://localhost/angular-resource'),
+    .connect('mongodb://localhost/angular-resource')
 	.set('debug', true); 
 
 var db = mongoose.connection;
 
 db
-  .on('error', console.error.bind(console, "Connection Error.")),
+  .on('error', console.error.bind(console, "Connection Error."))
   .once('open', console.log.bind(console, "We have connected."));
 
 // mongoose schemas 
@@ -39,7 +40,7 @@ var contactSchema = new mongoose.Schema({
 contactSchema
 	// set indexes on important fields in Contact Schema Using schema.index in mongoose.js which supports MongoDB secondary indexes
 	//set ordering of indexes ascending (1)  
-	.index({ name : { last  : 1, clean : 1 }, email : 1 }),
+	.index({ name : { last  : 1, clean : 1 }, email : 1 })
 	// define pre hook for Contact document before saving data
 	// Make sure the Contact document has 'added' field with current date 
 	// And clean field with concatenate first field and last field Before saving data
@@ -53,7 +54,7 @@ contactSchema
 		this.name.clean = (this.name.first + '-' + this.name.last).toLowerCase();
         // must call next() method at end of callback function for save hook
         next();  
-	}), 	
+	}) 	
 	// create virtual full name field under name object in Contact Document
 	// schema.virtual method return VirtualType Object
 	.virtual('name.full')
@@ -107,10 +108,107 @@ app
   .use( favicon(__dirname + '/public/favicon.ico') )
   .use( bodyParser.json() )
   .use( bodyParser.urlencoded({extended: true}) )
-  .use( logger('dev') ),	
+  .use( logger('dev') )	
   //serve the app folder statically
   .use( express.static( path.resolve(__dirname, '../app') ) );
 
 // ========================
 // API 
 // ========================
+ 
+app.router('/api/contact')
+	/**
+	 * Get all contacts 
+	 * @param  {object} req   http request object
+	 * @param  {object} res   http response object
+	 * @param  {object} next
+	 */
+	.get(function (req, res, next) {
+		// create empty query using find method without paramters and sort result using name.last
+		// execute query using exec method  
+		Contact
+		   .find()
+		   .sort('name.last')
+		   .exec(function (err, contact) {
+
+		   		if (err) {
+		   			return next(err);
+		   		}
+		   		res.send(contact);	
+		   });
+	})
+	/**
+	 * Create new Contact
+	 * @param  {object} req   http request object
+	 * @param  {object} res   http response object
+	 * @param  {object} next
+	 */
+	.post(function (req, res, next) {
+		// Create our new Contact
+		var contact = new Contact({
+			name: {
+				full: req.body.name
+			},
+			email : req.body.email,
+			number: req.body.number
+		});
+
+		// and save it into database
+		contact.save(function (err, contact) {
+			
+			if (err) {
+				return next(err);
+			}
+			res.send(contact);
+		});
+	});
+
+app.router('/api/contact/:name')
+	/**
+	 * Get a Contact by name
+	 * @param  {object} req   http request object
+	 * @param  {object} res   http response object
+	 * @param  {object} next
+	 */
+   .get(function (req, res, next) {
+   		
+   		Contact
+   		   .findOne({'name.clean': req.params.name})
+   		   .exec(function (err, contact) {
+			
+				if (err) {
+					return next(err);
+				}
+				res.send(contact);   		   		
+   		   });
+   });
+
+// ========================
+// App 
+// ========================
+
+app
+/**
+ * Otherwise for app routers will render index html view 
+ * @param  {object} req   http request object
+ * @param  {object} res   http response object
+ */
+ .get('*', function (req, res) {
+
+ 	res.render('index.html', { layout: null });
+ });
+
+// use errorhandler middlewire to set options when error happend 
+// Must use errorhander in express app after app routers
+ app
+  .use( errorhandler({ dumpExceptons: true, showStack: true}) );
+   	   	
+// ========================
+//  Go, go, go!
+// ======================== 
+
+app
+ .listen(app.get('port'), function () {
+ 	
+ 	console.log("Server listening on port "+app.get('port'));
+ });  	   	   	   	
