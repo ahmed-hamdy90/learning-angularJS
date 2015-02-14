@@ -116,7 +116,7 @@ app
 // API 
 // ========================
  
-app.router('/api/contact')
+app.route('/api/contact')
 	/**
 	 * Get all contacts 
 	 * @param  {object} req   http request object
@@ -163,7 +163,7 @@ app.router('/api/contact')
 		});
 	});
 
-app.router('/api/contact/:name')
+app.route('/api/contact/:name')
 	/**
 	 * Get a Contact by name
 	 * @param  {object} req   http request object
