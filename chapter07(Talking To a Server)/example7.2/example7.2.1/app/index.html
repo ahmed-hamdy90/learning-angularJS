@@ -21,6 +21,7 @@
 			}
 		</style>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular-resource.min.js"></script>		
 	</head>
 	<body>
 		<div ng-controller="ContactsCtrl">
@@ -43,10 +44,17 @@
 				 * contactsApp Module
 				 */
 				angular
-					.module('contactsApp', [])
-					.controller('ContactsCtrl', ['$scope', function ($scope) {
+					.module('contactsApp', ['ngResource'])
+					/**
+					 * Contacts Controller
+					 * @param  {$rootScopeProvider}  $scope
+					 */
+					.controller('ContactsCtrl', ['$scope', '$resource', function ($scope, $resource) {
 
-						$scope.contacts = [];
+						var Contact     = $resource('/api/contact/:name');
+						$scope.contacts = Contact.query();
+
+						window.contact = Contact;
 					}]);
 		</script>
 	</body>
