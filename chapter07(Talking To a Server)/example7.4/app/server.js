@@ -176,12 +176,31 @@ app.route('/api/contact/:name')
    		   .findOne({'name.clean': req.params.name})
    		   .exec(function (err, contact) {
 
-				if (err) {
-					return next(err);
-				}
-				res.send(contact);
+						if (err) {
+							return next(err);
+						}
+						res.send(contact);
    		   });
-   });
+   })
+	 .post(function (req, res, next) {
+
+			var updatedContact = {
+				name: {
+					full: req.body.name
+				},
+				email : req.body.email,
+				number: req.body.number
+			};
+			Contact
+			   .findOneAndUpdate({'name.clean': req.params.name}, updatedContact)
+			   .exec(function (err, contact) {
+
+					 if (err) {
+					 	 return next(err);
+					 }
+					 res.send(contact);
+				 });
+	 });
 
 // ========================
 // App
