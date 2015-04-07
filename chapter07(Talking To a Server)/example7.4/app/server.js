@@ -34,6 +34,7 @@ var contactSchema = new mongoose.Schema({
 	},
 	email  : String,
 	number : String,
+	notes  : String,
 	added  : Date
 });
 
@@ -41,6 +42,11 @@ contactSchema
 	// set indexes on important fields in Contact Schema Using schema.index in mongoose.js which supports MongoDB secondary indexes
 	//set ordering of indexes ascending (1)
 	.index({ name : { last  : 1, clean : 1 }, email : 1 })
+	// set contactSchema option for toJSON make virtual is ture
+	// to Enable Contact Object set name.full key in name object when retrive Contact Object from MongoDB
+	.set('toJSON', {
+		virtuals: true
+	})
 	// define pre hook for Contact document before saving data
 	// Make sure the Contact document has 'added' field with current date
 	// And clean field with concatenate first field and last field Before saving data
@@ -147,10 +153,11 @@ app.route('/api/contact')
 		// Create our new Contact
 		var contact = new Contact({
 			name: {
-				full: req.body.name
+				full: req.body.name.full
 			},
 			email : req.body.email,
-			number: req.body.number
+			number: req.body.number,
+			notes : req.body.notes
 		});
 
 		// and save it into database
@@ -184,22 +191,22 @@ app.route('/api/contact/:name')
    })
 	 .post(function (req, res, next) {
 
-			var updatedContact = {
-				name: {
-					full: req.body.name
-				},
-				email : req.body.email,
-				number: req.body.number
-			};
 			Contact
-			   .findOneAndUpdate({'name.clean': req.params.name}, updatedContact)
-			   .exec(function (err, contact) {
-
-					 if (err) {
-					 	 return next(err);
-					 }
-					 res.send(contact);
-				 });
+				.findOne({'name.clean': req.params.name})
+				.exec(function (err, contact) {
+						// update contact with new values
+						contact.name.full = req.body.name.full;
+						contact.email     = req.body.email;
+						contact.number    = req.body.number;
+						contact.notes     = req.body.notes;
+						// then save contact
+						contact.save(function (err, contact) {
+							if (err) {
+								return next(err);
+							}
+							res.send(contact);
+						});
+				});
 	 });
 
 // ========================

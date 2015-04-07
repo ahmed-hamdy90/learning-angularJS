@@ -90,18 +90,24 @@
 					 * @param {$routeParams} $routeParams
 					 * @param {Contact} Contact factory Object
 					 */
-					.controller('SingleCtrl', ['$scope', '$routeParams', 'Contact',
-						            function ($scope, $routeParams, Contact) {
+					.controller('SingleCtrl', ['$scope', '$routeParams', 'Contact', '$timeout', '$location',
+						            function ($scope, $routeParams, Contact, $timeout, $location) {
 
 						$scope.contact = Contact.get({ name: $routeParams.name });
+						var saveTimeout;
 						/**
 						 * save handler action to ng-change directive
 						 * used to save contact object every change into one property of Contact Object
 						 */
 						$scope.save = function () {
-								$scope.contact.$save(function (updated_contact) {
-										$scope.contact = updated_contact;
-								});
+								$timeout.cancel(saveTimeout);
+								saveTimeout = $timeout(function() {
+									$scope.contact.name.full = $scope.contact.name.first + ' ' + $scope.contact.name.last;
+									$scope.contact.$save(function (updated_contact) {
+											$scope.contact = updated_contact;
+											$location.path('/contact/' + updated_contact.name.clean).replace();
+									});
+								}, 1000);
 						}
 					}]);
 		</script>
