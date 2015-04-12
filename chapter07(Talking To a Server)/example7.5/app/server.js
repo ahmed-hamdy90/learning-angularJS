@@ -57,7 +57,9 @@ contactSchema
 			this.added = new Date();
 		}
 
-		this.name.clean = (this.name.first + '-' + this.name.last).toLowerCase();
+        // we did not need the next line as setter method for virtual full name field used to setting clean name field
+        // and save hook is called only when using save method
+		//this.name.clean = (this.name.first + '-' + this.name.last).toLowerCase();
         // must call next() method at end of callback function for save hook
         next();
 	})
@@ -74,7 +76,7 @@ contactSchema
  	  .set(function (name) {
 
 		 // first trim name string then split it to fill first and last fields
-		 var splitArray  = name.trim().split(' ');
+		 var splitArray  = (name.first + ' ' + name.last).trim().split(' ');
 		 this.name.first = splitArray[0];
 		 this.name.last  = splitArray[1];
 		 this.name.clean = splitArray.join('-').toLowerCase();
@@ -153,7 +155,7 @@ app.route('/api/contact')
 		// Create our new Contact
 		var contact = new Contact({
 			name: {
-				full: req.body.name.full
+				full: req.body.name
 			},
 			email : req.body.email,
 			number: req.body.number,
@@ -183,31 +185,45 @@ app.route('/api/contact/:name')
    		   .findOne({'name.clean': req.params.name})
    		   .exec(function (err, contact) {
 
-						if (err) {
-							return next(err);
-						}
-						res.send(contact);
+				if (!contact) {
+					return res.status(404).send("Contact is not Found");
+				}
+
+				if (err) {
+					return next(err);
+				}
+				res.send(contact);
    		   });
    })
-	 .post(function (req, res, next) {
+	/**
+	 * Update/Edit an exists Contact
+	 * @param  {object} req   http request object
+	 * @param  {object} res   http response object
+	 * @param  {object} next
+	 */   
+   .post(function (req, res, next) {
 
-			Contact
-				.findOne({'name.clean': req.params.name})
-				.exec(function (err, contact) {
-						// update contact with new values
-						contact.name.full = req.body.name.full;
-						contact.email     = req.body.email;
-						contact.number    = req.body.number;
-						contact.notes     = req.body.notes;
-						// then save contact
-						contact.save(function (err, contact) {
-							if (err) {
-								return next(err);
-							}
-							res.send(contact);
-						});
-				});
-	 });
+		Contact
+			.findOne({'name.clean': req.params.name})
+			.exec(function (err, contact) {
+
+				if (!contact) {
+					return res.status(404).send("Contact is not Found");
+				} 
+                // override contact attributes 		
+		 		contact.name.full = req.body.name;
+		 		contact.email     = req.body.email;
+		 		contact.number    = req.body.number;
+		 		contact.notes     = req.body.notes;
+                // then save updated contact object   
+		 		contact.save(function (err, updatedContact) { 
+					if (err) {
+						return next(err);
+					}
+					res.send(updatedContact);
+		 		})
+			});
+	});
 
 // ========================
 // App
