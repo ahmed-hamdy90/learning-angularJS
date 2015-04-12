@@ -100,10 +100,12 @@
 						 * used to save contact object every change into one property of Contact Object
 						 */
 						$scope.save = function () {
+
 								$timeout.cancel(saveTimeout);
 								saveTimeout = $timeout(function() {
-									$scope.contact.name.full = $scope.contact.name.first + ' ' + $scope.contact.name.last;
+
 									$scope.contact.$save(function (updated_contact) {
+										
 											$scope.contact = updated_contact;
 											$location.path('/contact/' + updated_contact.name.clean).replace();
 									});
